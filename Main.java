@@ -28,7 +28,7 @@ public class Main {
 		serv = new HttpServer(80);
 		serv.setIndex(insertAll());
 		
-		reciever = new Thread(new Runnable() {// поток обрабатывающий пакеты от метеостанций
+		reciever = new Thread(new Runnable() {// РїРѕС‚РѕРє РѕР±СЂР°Р±Р°С‚С‹РІР°СЋС‰РёР№ РїР°РєРµС‚С‹ РѕС‚ РјРµС‚РµРѕСЃС‚Р°РЅС†РёР№
 			@Override
 			public void run() {
 				DatagramSocket udp;
@@ -40,9 +40,9 @@ public class Main {
 						packet = new DatagramPacket(new byte[5], 5);
 						udp.receive(packet);
 						byte[] data = packet.getData();
-						if(data[4] != 0x13) continue; // отсеиваем шумы
+						if(data[4] != 0x13) continue; // РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РїР°РєРµС‚Р°
 						temperature = (data[0] << 24) | (data[1] << 16) | (data[2] << 8) | (data[3]);
-						temp = 1 / ( -Math.log((1023.0 / temperature) -1.0) / 3977.0 + 1.0 / 295.0) -273.0; // формула из скетча для ардуино
+						temp = 1 / ( -Math.log((1023.0 / temperature) -1.0) / 3977.0 + 1.0 / 295.0) -273.0; // С„РѕСЂРјСѓР»Р° РёР· СЃРєРµС‚С‡Р° Р°РјРїРµСЂРєРё РґР»СЏ Р°СЂРґСѓРёРЅРѕ
 						System.out.println("message: " + new String(packet.getData()));
 						timestamp = System.currentTimeMillis();
 						serv.setIndex(insertAll());
