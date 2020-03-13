@@ -41,7 +41,7 @@ public class HttpServer {
     	index = i;
     }
     
-    private static class SocketProcessor implements Runnable {
+    private static class SocketProcessor implements Runnable { // обработчик сокета
 
         private Socket s;
         private InputStream is;
